@@ -2,12 +2,29 @@ package com.mbop.java.tests.triton.algorithm;
 
 /**
  * Decodes a number to its word representation. example: the number 321
- * is decoded to the word "three hundred twenty one"
+ * is decoded to the word "three hundred twenty one". <br/>
+ * The algorithm used finds the position of each digit in the number
+ * and maps it to its word representation. First in the decode method,
+ * we find the highest possible position digit or number, in our
+ * case it is the thousand position by dividing the number by a thousand.
+ * If the thousand position digit or number exists, it is decoded to its 
+ * word representation. In the division process, we keep the remainder
+ * and recursively call the decode method passing the remainder and the
+ * next position (after a thousand, it is a hundred) to find and decode
+ * the next digit or number position. 
+ * 
  */
 public class NumberDecoder {
 	
 	private String result = "";
 
+	/**
+	 * @param number, the number to be decoded
+	 * @param position, position of each digit in the number
+	 * @return the word representation of number by recursively
+	 * calling this method to find each digit position and decode it
+	 * according to its position.
+	 */
 	public String decode(int number, int position) {
 	
 		int nextPosition = position/10;
@@ -20,6 +37,7 @@ public class NumberDecoder {
 		}
 		result += decodeNumberPosition(divisionResult, position);
 		int remainder = number%position;
+		
 		if(remainder < 20 ){
 			result += decodeNumber(remainder);
 			return result ;
